@@ -12,7 +12,7 @@ func TestGetService(t *testing.T) {
 		e = httpexpect.New(t, "http://localhost:8080")
 	)
 	// services GET
-	e.GET("/services/{srvid}").
+	e.GET("/v1/services/{srvid}").
 		Expect().JSON()
 }
 
@@ -22,7 +22,7 @@ func TestGetServices(t *testing.T) {
 		e = httpexpect.New(t, "http://localhost:8080")
 	)
 	// services GET
-	e.GET("/services").
+	e.GET("/v1/services").
 		Expect().
 		Status(http.StatusOK).JSON()
 }
@@ -39,6 +39,7 @@ func TestPostServices(t *testing.T) {
 			"type":"service",
 			"attributes": {
 				"description": "test string",
+				"methods": ["GET","POST"],
 				"parameters": [{
 					"type":"string",
 					"description": "test string",
@@ -89,7 +90,7 @@ func TestPostServices(t *testing.T) {
 		}`
 	)
 
-	repos := e.POST("/services").
+	repos := e.POST("/v1/services").
 		WithHeader("Content-Type", "application/json").
 		WithJSON(createServiceJSON).
 		Expect().
@@ -109,6 +110,7 @@ func TestAlterServices(t *testing.T) {
 			"type":"service",
 			"attributes": {
 				"description": "test string",
+				"methods": ["GET"],
 				"parameters": [],
 	            "registers": [],
 	            "subscribers": [],
@@ -125,7 +127,7 @@ func TestAlterServices(t *testing.T) {
 			"links": "array"
 		}`
 	)
-	repos := e.PUT("/services").
+	repos := e.PUT("/v1/services").
 		WithHeader("Content-Type", "application/json").
 		WithJSON(alterServiceJSON).
 		Expect().
@@ -139,6 +141,6 @@ func TestDeleteService(t *testing.T) {
 		e = httpexpect.New(t, "http://localhost:8080")
 	)
 	// DELETE service
-	e.DELETE("/services/{srvid}").
+	e.DELETE("/v1/services/{srvid}").
 		Expect().JSON()
 }

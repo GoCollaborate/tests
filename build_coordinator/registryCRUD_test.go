@@ -12,7 +12,7 @@ func TestRegisterService(t *testing.T) {
 		e = httpexpect.New(t, "http://localhost:8080")
 	)
 	// services POST
-	e.POST("/services/{srvid}/registry").
+	e.POST("/v1/services/{srvid}/registry").
 		Expect().
 		Status(http.StatusOK).JSON()
 }
@@ -23,7 +23,7 @@ func TestSubscribeService(t *testing.T) {
 		e = httpexpect.New(t, "http://localhost:8080")
 	)
 	// services POST
-	e.POST("/services/{srvid}/subscription").
+	e.POST("/v1/services/{srvid}/subscription").
 		Expect().
 		Status(http.StatusOK).JSON()
 }
@@ -34,7 +34,7 @@ func TestDeRegisterService(t *testing.T) {
 		e = httpexpect.New(t, "http://localhost:8080")
 	)
 	// DELETE registry
-	e.DELETE("/services/{srvid}/registry/single/{ip}/{port}").
+	e.DELETE("/v1/services/{srvid}/registry/single/{ip}/{port}").
 		Expect().JSON()
 }
 
@@ -44,7 +44,7 @@ func TestUnSubscribeService(t *testing.T) {
 		e = httpexpect.New(t, "http://localhost:8080")
 	)
 	// DELETE subscription
-	e.DELETE("/services/{srvid}/subscription/single/{token}").
+	e.DELETE("/v1/services/{srvid}/subscription/single/{token}").
 		Expect().JSON()
 }
 func TestBulkDeRegisterService(t *testing.T) {
@@ -53,7 +53,7 @@ func TestBulkDeRegisterService(t *testing.T) {
 		e = httpexpect.New(t, "http://localhost:8080")
 	)
 	// DELETE registries
-	e.DELETE("/services/{srvid}/registry").
+	e.DELETE("/v1/services/{srvid}/registry").
 		Expect().JSON()
 }
 
@@ -63,6 +63,6 @@ func TestBulkUnSubscribeService(t *testing.T) {
 		e = httpexpect.New(t, "http://localhost:8080")
 	)
 	// DELETE subscriptions
-	e.DELETE("/services/{srvid}/subscription").
+	e.DELETE("/v1/services/{srvid}/subscription").
 		Expect().JSON()
 }
